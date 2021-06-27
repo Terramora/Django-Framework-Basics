@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from json import load
+from datetime import datetime
 
 
 # Create your views here.
@@ -19,4 +20,5 @@ def products(requests):
     with open('C:\\Users\\Terramora.CNV\\Documents\\GitHub\\Django\\geekshop\\products\\fixtures\\products.json', 'r',
               encoding='utf-8') as f:
         context = load(f)
+        context['year'] = datetime.now().year
         return render(requests, 'products/products.html', context)
