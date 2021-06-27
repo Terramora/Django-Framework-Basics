@@ -1,14 +1,13 @@
 from django.shortcuts import render
-from geekshop.settings import BASE_DIR
 from json import load
-from pathlib import Path
 
 
 # Create your views here.
 
 
 def index(requests):
-    return render(requests, 'products/index.html')
+    context = {'title': 'GeekShop Store'}
+    return render(requests, 'products/index.html', context)
 
 
 def products(requests):
