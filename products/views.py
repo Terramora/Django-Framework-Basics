@@ -2,8 +2,8 @@ from django.shortcuts import render
 from json import load
 from datetime import datetime
 
-
 # Create your views here.
+from geekshop.settings import BASE_DIR
 
 
 def index(requests):
@@ -16,9 +16,8 @@ def products(requests):
     :param requests:
     :return:
     """
-    # сработал только абсолютный путь
-    with open('C:\\Users\\Terramora.CNV\\Documents\\GitHub\\Django\\geekshop\\products\\fixtures\\products.json', 'r',
-              encoding='utf-8') as f:
+    with open(BASE_DIR / 'products/fixtures/products.json', 'r', encoding='utf-8') as f:
         context = load(f)
         context['year'] = datetime.now().year
+        context['title'] = 'Products'
         return render(requests, 'products/products.html', context)
