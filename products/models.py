@@ -7,9 +7,8 @@ class ProductCategory(models.Model):
     name = models.CharField(max_length=256)
     description = models.TextField(blank=True, null=True)
 
-    class Meta:
-        app_label = 'products'
-        managed = True
+    def __str__(self):
+        return self.name
 
 
 class Product(models.Model):
@@ -20,6 +19,5 @@ class Product(models.Model):
     quantity = models.PositiveIntegerField(default=0)
     category = models.ForeignKey(ProductCategory, on_delete=models.CASCADE)
 
-    class Meta:
-        app_label = 'products'
-        managed = True
+    def __str__(self):
+        return f'{self.name} || {self.category.name}'
