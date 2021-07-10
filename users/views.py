@@ -8,26 +8,17 @@ from django.urls import reverse
 
 def login(request):
     if request.method == 'POST':
-        if UserLoginForm(data=request.POST).is_valid():
+        form = UserLoginForm(data=request.POST)
+        if form.is_valid():
             user = auth.authenticate(username=request.POST['username'],
                                      password=request.POST['password'])
             if user and user.is_active:
                 auth.login(request, user)
                 return HttpResponseRedirect(reverse('index'))
-
-        context = {
-            'title': 'Авторизация',
-            'form': UserLoginForm(),
-            'error': 'Error'
-        }
-        return render(request, 'users/login.html', context)
-
     else:
-        context = {
-            'title': 'Авторизация',
-            'form': UserLoginForm()
-        }
-        return render(request, 'users/login.html', context)
+        form = UserLoginForm()
+    context = {'title': 'GeekShop - Авторизация', 'form': form}
+    return render(request, 'users/login.html', context)
 
 
 def registrations(request):
@@ -36,15 +27,11 @@ def registrations(request):
         if form.is_valid():
             form.save()
             return HttpResponseRedirect(reverse('users:login'))
-        else:
-            context = {'title': 'Регистрация',
-                       'error': 'Invalid data',
-                       'form': UserRegistrationForm()}
-            return render(request, 'users/register.html', context)
     else:
-        context = {'title': 'Регистрация',
-                   'form': UserRegistrationForm()}
-        return render(request, 'users/register.html', context)
+        form = UserRegistrationForm()
+    context = {'title': 'Регистрация',
+                   'form': form}
+    return render(request, 'users/register.html', context)
 
 
 def logout(request):
