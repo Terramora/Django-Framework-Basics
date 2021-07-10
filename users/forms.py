@@ -66,10 +66,10 @@ class UserProfileForm(UserChangeForm):
     last_name = forms.CharField(widget=forms.TextInput(attrs={
         'class': CSS_CLASS_AUTH
     }))
-    image = forms.ImageField(widget=forms.FileInput(attrs={
+    avatar = forms.ImageField(widget=forms.FileInput(attrs={
         'class': 'custom-file-input'
     }), required=False)
 
     class Meta:
         model = User
-        fields = ('username', 'email', 'first_name', 'last_name', 'image')
+        fields = ('username', 'email', 'first_name', 'last_name', 'avatar')
